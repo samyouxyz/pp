@@ -6,5 +6,5 @@ a Python CLI tool that sets up a virtual environment, installs dependencies, and
 
 ```
 chmod +x pp.py
-./pp.py examples/tt.py
+./pp.py example_price_prediction.py
 ```

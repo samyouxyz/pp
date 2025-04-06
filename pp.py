@@ -17,25 +17,6 @@ def create_virtualenv(venv_path):
             sys.exit(1)
 
 
-def get_requirements(file_path):
-    """Extract import statements from the Python file to determine dependencies."""
-    requirements = set()
-    try:
-        with open(file_path, "r") as f:
-            content = f.read()
-            # Simple regex to find import statements
-            imports = re.findall(
-                r"^(?:import|from)\s+([a-zA-Z0-9_]+)", content, re.MULTILINE
-            )
-            # Filter out standard library modules (basic approach)
-            common_stdlib = {"os", "sys", "math", "random", "datetime", "time", "json"}
-            requirements = {imp for imp in imports if imp not in common_stdlib}
-    except FileNotFoundError:
-        print(f"Error: File {file_path} not found")
-        sys.exit(1)
-    return requirements
-
-
 def get_requirements_from_txt(venv_path):
     req_file = "requirements.txt"
     if os.path.exists(req_file):
@@ -102,7 +83,6 @@ def main():
     create_virtualenv(args.venv)
 
     # Get and install requirements
-    # requirements = get_requirements(args.file)
     requirements = get_requirements_from_txt(args.venv)
     install_dependencies(args.venv, requirements)
 
